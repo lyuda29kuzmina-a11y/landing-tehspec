@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Людмила Кузьмина — техспец онлайн-школ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #4FACFE;
+      --accent-dim: rgba(79, 172, 254, 0.10);
+      --accent2: #6366F1;
+      --accent2-dim: rgba(99, 102, 241, 0.10);
+      --bg: #F4F6F9;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text: #111827;
+      --muted: #6B7280;
+      --radius: 12px;
+      --max-w: 1100px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      position: relative;
+      background: #FFFFFF;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 20% 50%, rgba(79,172,254,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: var(--max-w);
+      width: 100%;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    /* ── фото ── */
+    .hero-photo {
+      position: relative;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .hero-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 20px;
+      background: #e6edf5;
+      border: 2px dashed #b8cde0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #7a96b0;
+      font-size: 13px;
+    }
+
+    .hero-photo-placeholder svg {
+      width: 56px;
+      height: 56px;
+      stroke: #9ab3c8;
+      fill: none;
+      stroke-width: 1.2;
+      stroke-linecap: round;
+    }
+
+    /* ── текст ── */
+    .hero-text {
+      text-align: left;
+    }
+
+    .hero-role {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a7fd4;
+      border: 1px solid rgba(79,172,254,0.5);
+      background: rgba(79,172,254,0.1);
+      border-radius: 100px;
+      padding: 4px 16px;
+      margin-bottom: 28px;
+    }
+
+    .hero-name {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+      color: #1a7fd4;
+    }
+
+    .hero-offer {
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      color: #444;
+      margin: 0 0 36px;
+      line-height: 1.65;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0D0D0D;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.88;
+      text-decoration: none;
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 96px 0;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+      color: var(--accent2);
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      border-top: 1px solid var(--border);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: opacity 0.6s ease, transform 0.4s ease, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(79,172,254,0.45);
+      box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.2);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── PROCESS ── */
+    #process {
+      border-top: 1px solid var(--border);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(12.5% + 12px);
+      right: calc(12.5% + 12px);
+      height: 1px;
+      background: var(--border);
+    }
+
+    .step {
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent2-dim);
+      border: 1px solid rgba(99,102,241,0.4);
+      color: var(--accent2);
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── CASES ── */
+    #cases {
+      border-top: 1px solid var(--border);
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: opacity 0.6s ease, transform 0.4s ease, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .case-card:hover {
+      border-color: rgba(79,172,254,0.45);
+      box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.2);
+    }
+
+    .case-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .case-row-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .case-row-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── CONTACTS ── */
+    #contacts {
+      border-top: 1px solid var(--border);
+    }
+
+    .contacts-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      max-width: 560px;
+    }
+
+    .contacts-inner .section-title {
+      margin-bottom: 0;
+    }
+
+    .contacts-desc {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .contact-item:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(79,172,254,0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--accent);
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-meta-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-meta-value {
+      font-size: 0.97rem;
+      font-weight: 500;
+    }
+
+    .city-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .city-row svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal:not(.card):not(.case-card) {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .card, .case-card {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section {
+        padding: 64px 0;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .steps::before {
+        display: none;
+      }
+
+      .step {
+        display: flex;
+        gap: 20px;
+        padding: 0;
+      }
+
+      .step-num {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        align-self: flex-start;
+      }
+
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-photo {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-offer {
+        margin: 0 auto 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name {
+        font-size: 2rem;
+      }
+
+      .hero-photo {
+        max-width: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <header id="hero">
+    <div class="hero-inner">
+
+      <!-- Левая колонка: фото -->
+      <div class="hero-photo">
+        <img src="foto.png" alt="Людмила Кузьмина" />
+      </div>
+
+      <!-- Правая колонка: текст -->
+      <div class="hero-text">
+        <span class="hero-role">Техспец онлайн-школ</span>
+        <h1 class="hero-name">Людмила Кузьмина</h1>
+        <p class="hero-offer">
+          10 лет в инфобизнесе — от технического специалиста до
+          проджект-менеджера проектов с оборотом 20+ млн рублей.
+          Понимаю ваш бизнес не только технически, но и со стороны
+          продаж, маркетинга и управления командой.
+        </p>
+        <a href="#contacts" class="btn">Написать в Telegram</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── SERVICES ── -->
+  <section id="services">
+    <div class="container">
+      <p class="section-label reveal">Услуги</p>
+      <h2 class="section-title reveal">Что я делаю</h2>
+      <div class="services-grid">
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>GetCourse</h3>
+          <p>Полная настройка платформы: домен, оформление, продуктовая
+             линейка, оплаты, рассылки, лендинги. Настройка процессов,
+             сегментов, дашбордов и аналитики по тегам, предложениям
+             и причинам отмен. Автовебинары, сертификаты, анкеты
+             с выводом в Google Sheets.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Salebot / Telegram-боты</h3>
+          <p>Чат-боты для продаж, прогрева и поддержки в Telegram и VK.
+             Автоворонки, марафонные и автовебинарные воронки, подключение
+             платёжных систем. Боты-визитки и боты с ИИ под разные задачи.
+             Интеграция с GetCourse и CRM.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>AmoCRM</h3>
+          <p>Настройка воронок, автоматизация задач и сделок, подключение
+             источников лидов. Интеграция с мессенджерами, телефонией
+             и Bizon 365. Связка с GetCourse для автоматической передачи
+             данных участников вебинаров.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg>
+          </div>
+          <h3>Интеграции и автоматизация</h3>
+          <p>Связываю сервисы через Make, Zapier или API: GetCourse ↔
+             AmoCRM ↔ Telegram ↔ Google Sheets ↔ Senler ↔ телефония.
+             Настраиваю авторассылки Email, WhatsApp, SMS и автозвонки
+             (Звонобот и другие).</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M15 10l-4 4 6 6-4-14-2 8"/></svg>
+          </div>
+          <h3>Вебинары и автовебинары</h3>
+          <p>Настройка и сопровождение вебинаров: Bizon 365, OBS,
+             YouTube, Zoom. Страницы регистрации, сценарии автовебинаров
+             с нуля, модерация эфиров, выгрузка записей. Передача данных
+             участников из Bizon в GetCourse и AmoCRM.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3>Tilda — сайты</h3>
+          <p>Перенос макетов с Figma на Tilda, анимации разной сложности
+             для desktop и мобайл. Автоматическая смена дат и цен,
+             подключение форм и платёжных систем, UTM-метки, домен.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROCESS ── -->
+  <section id="process">
+    <div class="container">
+      <p class="section-label reveal">Процесс</p>
+      <h2 class="section-title reveal">Как я работаю</h2>
+      <div class="steps">
+
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Аудит</h3>
+            <p>Разбираюсь в вашей ситуации: что уже настроено, что болит,
+               чего хочется достичь.</p>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Решение</h3>
+            <p>Предлагаю конкретный план: инструменты, схему автоматизации
+               и ожидаемый результат.</p>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Реализация</h3>
+            <p>Настраиваю, тестирую, исправляю — сдаю работающее решение,
+               а не «как-нибудь да будет».</p>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="step-num">04</div>
+          <div>
+            <h3>Поддержка</h3>
+            <p>Помогаю разобраться с итогом, отвечаю на вопросы,
+               при необходимости дорабатываю.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CASES ── -->
+  <section id="cases">
+    <div class="container">
+      <p class="section-label reveal">Кейсы</p>
+      <h2 class="section-title reveal">Примеры работ</h2>
+      <div class="cases-grid">
+
+        <div class="case-card reveal">
+          <div class="case-row">
+            <span class="case-row-label">Задача</span>
+            <span class="case-row-text">Вся аналитика в проекте с оборотом 20+ млн руб./мес. считалась вручную. Нужна система KPI по каждому спикеру, отделу и сегменту оплат.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Решение</span>
+            <span class="case-row-text">Сегментировала заказы по предложениям (конверсия каждого спикера), тегам (горячие, дожим, апсейл, партнёрка…) и причинам отмен. Настроила дашборды с ключевыми показателями по каждому отделу и сотруднику.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Результат</span>
+            <span class="case-row-text">Полностью автоматическая аналитика вместо ручного учёта. Проект начал точечно дорабатывать воронку продаж и маркетинговую стратегию на основе реальных цифр.</span>
+          </div>
+        </div>
+
+        <div class="case-card reveal">
+          <div class="case-row">
+            <span class="case-row-label">Задача</span>
+            <span class="case-row-text">Запустить автовебинарную воронку одновременно на Bizon 365 и GetCourse.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Решение</span>
+            <span class="case-row-text">Провела живой вебинар через OBS + VK, обработала запись, собрала сценарий в Bizon (комментарии, ссылки, слайды), адаптировала для GetCourse (виджеты, команды). Настроила расписание, аналитику присутствия и автоматическую передачу данных участников из Bizon → GetCourse.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Результат</span>
+            <span class="case-row-text">Автовебинар запускается по расписанию без участия команды. Лиды, кликнувшие по кнопке и не оставившие заявку, автоматически попадают в нужные сегменты GetCourse.</span>
+          </div>
+        </div>
+
+        <div class="case-card reveal">
+          <div class="case-row">
+            <span class="case-row-label">Задача</span>
+            <span class="case-row-text">Автоматически выдавать сертификаты по завершении обучения и управлять доступами и рассылками по разным условиям прохождения курса.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Решение</span>
+            <span class="case-row-text">Настроила шаблоны дипломов и процессы выдачи сертификата после выполнения всех уроков. Добавила процессы: выдача доступов к курсам, отправка сообщений на ключевых этапах, передача данных в Senler для сегментации по статусу оплаты.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Результат</span>
+            <span class="case-row-text">Сертификаты, доступы и письма выдаются автоматически — команда освобождена от ручной работы. Senler получает корректные сегменты для разных цепочек воронок.</span>
+          </div>
+        </div>
+
+        <div class="case-card reveal">
+          <div class="case-row">
+            <span class="case-row-label">Задача</span>
+            <span class="case-row-text">Собрать обратную связь от студентов для построения персонализированной воронки продаж следующего продукта.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Решение</span>
+            <span class="case-row-text">Создала многошаговую анкету в GetCourse (1 вопрос = 1 шаг), ограничила доступ к следующему уроку до полного заполнения, вывела все ответы в Google Sheets в структурированном виде.</span>
+          </div>
+          <div class="case-row">
+            <span class="case-row-label">Результат</span>
+            <span class="case-row-text">100% студентов заполнили анкету до перехода к следующему модулю. Данные в Google Sheets стали основой для сегментации и персонализации дальнейшей воронки.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACTS ── -->
+  <section id="contacts">
+    <div class="container">
+      <div class="contacts-inner">
+        <p class="section-label reveal">Контакты</p>
+        <h2 class="section-title reveal">Давайте поговорим</h2>
+        <p class="contacts-desc reveal">
+          Опишите задачу в Telegram или напишите на почту — отвечаю в течение дня.
+        </p>
+
+        <div class="contact-links reveal">
+
+          <a class="contact-item" href="https://t.me/Liudmila_Kuzmina" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <!-- Telegram icon -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.09 13.92l-2.94-.916c-.64-.203-.653-.64.135-.953l11.57-4.461c.537-.194 1.006.131.84.631z"/>
+              </svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-meta-label">Telegram</span>
+              <span class="contact-meta-value">@Liudmila_Kuzmina</span>
+            </div>
+          </a>
+
+          <a class="contact-item" href="https://t.me/lyusik_techspec" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.09 13.92l-2.94-.916c-.64-.203-.653-.64.135-.953l11.57-4.461c.537-.194 1.006.131.84.631z"/>
+              </svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-meta-label">Telegram-канал с кейсами</span>
+              <span class="contact-meta-value">@lyusik_techspec</span>
+            </div>
+          </a>
+
+          <a class="contact-item" href="mailto:lyuda29kuzmina@gmail.com">
+            <div class="contact-icon">
+              <!-- Email icon -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.236-8 4.882-8-4.882V6l8 4.882L20 6v2.236z"/>
+              </svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-meta-label">Email</span>
+              <span class="contact-meta-value">lyuda29kuzmina@gmail.com</span>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="city-row reveal">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Санкт-Петербург
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2026 Людмила Кузьмина</span>
+        <div class="footer-links">
+          <a href="https://t.me/Liudmila_Kuzmina" target="_blank" rel="noopener">Telegram</a>
+          <a href="mailto:lyuda29kuzmina@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Появление блоков при скролле
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    // 3D-наклон карточек за курсором
+    document.querySelectorAll('.card, .case-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rotateX = (0.5 - py) * 10;
+        const rotateY = (px - 0.5) * 10;
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  </script>
+
+</body>
+</html>
