@@ -1,14 +1,42 @@
-# macOS
+# Mac-овские системные файлы
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
 
-# Editor
+# Личные настройки IDE
 .vscode/
+.idea/
 
-# Переменные окружения / секреты
-.env
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Зависимости (Node)
+node_modules/
 
 # Логи
 *.log
+
+# Секреты — критично!
+.env
+.env.local
+*.key
+*.pem
+credentials.json
+
+# Базы данных в проектах
+*.sqlite
+*.sqlite3
+*.db
+
+# Сборки и временные файлы
+dist/
+build/
+.cache/
+tmp/
+*.bak
