@@ -13,8 +13,8 @@
       --accent-dim: rgba(79, 172, 254, 0.10);
       --accent2: #6366F1;
       --accent2-dim: rgba(99, 102, 241, 0.10);
-      --accent3: #F59E0B;
-      --accent3-dim: rgba(245, 158, 11, 0.10);
+      --accent3: #A78BFA;
+      --accent3-dim: rgba(167, 139, 250, 0.10);
       --gradient-text: linear-gradient(90deg, var(--accent2), var(--accent), var(--accent3), var(--accent2));
       --bg: #F4F6F9;
       --surface: #FFFFFF;
@@ -166,7 +166,7 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
-      animation: hero-shimmer 6s ease-in-out infinite;
+      animation: hero-shimmer 10s ease-in-out infinite;
     }
 
     /* ── ПЕРЕЛИВАЮЩИЙСЯ ГРАДИЕНТ (заголовки и карточки) ── */
@@ -178,7 +178,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: hero-shimmer 6s ease-in-out infinite;
+      animation: hero-shimmer 10s ease-in-out infinite;
     }
 
     @keyframes hero-shimmer {
@@ -411,7 +411,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
-      animation: hero-shimmer 6s ease-in-out infinite;
+      animation: hero-shimmer 10s ease-in-out infinite;
     }
 
     .card:hover::before,
