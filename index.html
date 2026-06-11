@@ -13,10 +13,13 @@
       --accent-dim: rgba(79, 172, 254, 0.10);
       --accent2: #6366F1;
       --accent2-dim: rgba(99, 102, 241, 0.10);
+      --accent3: #F59E0B;
+      --accent3-dim: rgba(245, 158, 11, 0.10);
+      --gradient-text: linear-gradient(90deg, var(--accent2), var(--accent), var(--accent3), var(--accent2));
       --bg: #F4F6F9;
       --surface: #FFFFFF;
       --border: #E2E8F0;
-      --text: #111827;
+      --text: #062056;
       --muted: #6B7280;
       --radius: 12px;
       --max-w: 1100px;
@@ -148,13 +151,11 @@
       margin-bottom: 28px;
     }
 
-    .hero-name {
-      font-size: clamp(2.4rem, 4vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #1a7fd4, #6366F1, #4FACFE, #1a7fd4);
+    /* ── ПЕРЕЛИВАЮЩИЙСЯ ГРАДИЕНТ (заголовки и карточки) ── */
+    .hero-name,
+    .section-title,
+    .card h3 {
+      background: var(--gradient-text);
       background-size: 300% 100%;
       -webkit-background-clip: text;
       background-clip: text;
@@ -167,11 +168,33 @@
       50% { background-position: 100% 50%; }
     }
 
+    .hero-name {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
     .hero-offer {
       font-size: clamp(1.1rem, 1.8vw, 1.35rem);
       color: #444;
       margin: 0 0 36px;
       line-height: 1.65;
+    }
+
+    /* ── TYPEWRITER ── */
+    .hero-offer.typewriter::after {
+      content: '|';
+      display: inline-block;
+      margin-left: 2px;
+      color: var(--accent2);
+      animation: typewriter-blink 0.8s steps(1) infinite;
+    }
+
+    @keyframes typewriter-blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
     }
 
     .btn {
@@ -212,7 +235,6 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 48px;
-      color: var(--accent2);
     }
 
     /* ── SERVICES ── */
@@ -227,6 +249,7 @@
     }
 
     .card {
+      position: relative;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -235,7 +258,6 @@
     }
 
     .card:hover {
-      border-color: rgba(79,172,254,0.45);
       box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.2);
     }
 
@@ -340,6 +362,7 @@
     }
 
     .case-card {
+      position: relative;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -351,8 +374,31 @@
     }
 
     .case-card:hover {
-      border-color: rgba(79,172,254,0.45);
       box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.2);
+    }
+
+    /* ── ГРАДИЕНТНАЯ РАМКА ПРИ НАВЕДЕНИИ ── */
+    .card::before,
+    .case-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: var(--gradient-text);
+      background-size: 300% 100%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      animation: hero-shimmer 6s ease-in-out infinite;
+    }
+
+    .card:hover::before,
+    .case-card:hover::before {
+      opacity: 1;
     }
 
     .case-row {
@@ -527,8 +573,13 @@
         transform: none !important;
       }
 
-      .hero-photo, .hero-name {
+      .hero-photo, .hero-name, .section-title, .card h3,
+      .card::before, .case-card::before, .hero-offer.typewriter::after {
         animation: none !important;
+      }
+
+      .card::before, .case-card::before {
+        opacity: 0 !important;
       }
     }
 
@@ -928,6 +979,26 @@
       heroPhotoWrap.addEventListener('mouseleave', () => {
         heroPhotoImg.style.transform = '';
       });
+    }
+
+    // Typewriter-эффект для подзаголовка в Hero
+    const heroOffer = document.querySelector('.hero-offer');
+    if (heroOffer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const fullText = heroOffer.textContent.trim().replace(/\s+/g, ' ');
+      heroOffer.textContent = '';
+      heroOffer.classList.add('typewriter');
+
+      let i = 0;
+      const typeChar = () => {
+        heroOffer.textContent = fullText.slice(0, i);
+        i++;
+        if (i <= fullText.length) {
+          setTimeout(typeChar, 18);
+        } else {
+          heroOffer.classList.remove('typewriter');
+        }
+      };
+      typeChar();
     }
 
     // 3D-наклон карточек за курсором
